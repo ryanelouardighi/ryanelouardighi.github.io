@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>questions</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #363535;
+    color: #FFF;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    padding: 20px 40px;
+  }
+
+  h1 {
+    font-size: 30pt;
+    font-weight: normal;
+    margin-bottom: 24px;
+  }
+
+  .entry {
+    margin-bottom: 6px;
+    white-space: nowrap;
+  }
+
+  .entry .date {
+    display: inline;
+  }
+
+  .entry a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .entry .meta {
+    color: #FFFF00;
+    text-decoration: none;
+    margin-right: 1em;
+  }
+
+  .entry .question {
+    color: #FFFF00;
+    text-decoration: none;
+    margin-bottom: 2em;
+  }
+
+  .entry .answer {
+    color: #FFF;
+    text-decoration: none;
+    text-indent: 2em;
+  }
+
+  input[type="text"] {
+   background: #fff;
+   border: 1px solid #FFFF00;
+   padding: 0.5em;
+   font-family: "Times New Roman", Times, serif;
+   font-size: 12pt;
+   width: 300px;
+   height: 100px;
+   vertical-align: top;
+  }
+
+  ::placeholder {
+   font-family: "Times New Roman", Times, serif;
+   font-size: 12pt;
+   color: #827d7d;
+  }
+
+  textarea {
+   background: #fff;
+   padding: 0.5em;
+   font-family: "Times New Roman", Times, serif;
+   font-size: 12pt;
+   width: 300px;
+   height: 100px;
+   vertical-align: top;
+  }
+
+  .gap {
+    display: inline-block;
+    width: 0.5em;
+  }
+</style>
+</head>
+<body>
+
+<h1><span style="color:#F00">¿</span>s</h1>
+
+<form id="myForm">
+  <input type="hidden" name="_next" value="/thankyou.html">
+  <textarea name="question" placeholder="ask something"></textarea>
+  <br>
+  <button type="submit">envoyer</button>
+</form>
+
+<script>
+  document.getElementById("myForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const data = new FormData(form);
+    
+    await fetch("https://formspree.io/f/mjgpkdev", {
+      method: "POST",
+      body: data,
+      headers: { "Accept": "application/json" }
+    });
+    
+    window.location.href = "/index/thankyou.html";
+  });
+</script>
+<br>
+<br>
+<div class="entry">
+  <span class="meta"><strong>2026.03.27 &nbsp; 10:05</strong></span><span class="question"><strong>do you like</strong></p>
+  <br>
+  <p class="answer">peut-être</p>
+</div>
+<br>
+<div class="entry">
+  <span class="meta"><strong>2026.03.27 &nbsp; 09:59</strong></span><span class="question"><strong>whats your favourite food</strong></p>
+  <br>
+  <p class="answer">food for thought</p>
+</div>
