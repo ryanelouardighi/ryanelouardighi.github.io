@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>forums</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #f4f4f4;
+    color: #000;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+  }
+  a { color: #0000cc; text-decoration: underline; cursor: pointer; }
+  a:visited { color: #551a8b; }
+  a:hover { color: #cc0000; }
+
+  #topbar {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  #topbar .logo {
+    width: 34px; height: 34px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+    color: #333;
+  }
+  #topbar .crumbs { font-size: 14px; }
+  #topbar input[type=text] {
+    border: 1px solid #999;
+    padding: 3px 4px;
+    font-size: 12px;
+    width: 160px;
+  }
+  #topbar select {
+    font-size: 12px;
+    padding: 3px 4px;
+    border: 1px solid #999;
+  }
+  #topbar button {
+    font-size: 12px;
+    padding: 3px 8px;
+    border: 1px solid #999;
+    background: #f0f0f0;
+    cursor: pointer;
+  }
+  #topbar .right {
+    margin-left: auto;
+    font-size: 12px;
+    display: flex;
+    gap: 14px;
+  }
+
+  #grid {
+    border-collapse: collapse;
+    margin: 30px 20px;
+    background: #fff;
+  }
+  #grid td {
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    min-width: 150px;
+  }
+  #grid a { text-decoration: none; }
+  #grid a:hover { text-decoration: underline; }
+  #grid .count {
+    color: #666;
+    font-size: 10px;
+    text-decoration: none;
+    margin-left: 3px;
+  }
+
+  #stats {
+    padding: 0 20px 30px;
+    font-size: 12px;
+    color: #333;
+  }
+
+  footer {
+    padding: 16px 20px;
+    font-size: 11px;
+    color: #999;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="logo">RE</div>
+  <div class="crumbs">
+    <a href="/index.html">ryanelouardighi.com</a> &gt; <b>forums</b>
+  </div>
+  <input type="text" placeholder="" id="searchbox">
+  <button onclick="doSearch()">search</button>
+  <select id="jumpTo" onchange="jump(this.value)">
+    <option value="">forum</option>
+  </select>
+</div>
+
+<table id="grid" border="1" cellspacing="0" cellpadding="4" font-size="5"></table>
+
+<div id="stats"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://gcledfplbxjjaoomnbom.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjbGVkZnBsYnhqamFvb21uYm9tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1NDE3MDIsImV4cCI6MjEwMTExNzcwMn0.Os7vq8RA5D8mkLBeit7w6hgDpJoXUC94qeKSFTi_7DI';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const forums = [
+  { name: "general",     file: "/index/forumz/forum-general.html",         category: "general",       count: 0 },
+  { name: "life stuff",  file: "/index/forumz/forum-life-stuff.html",      category: "life-stuff",    count: 0 },
+  { name: "philosophy",  file: "/index/forumz/forum-philosophy.html",      category: "philosophy",    count: 0 },
+  { name: "politics",    file: "/index/forumz/forum-politics.html",        category: "politics",      count: 0 },
+  { name: "writing",     file: "/index/forumz/forum-writing.html",         category: "writing",       count: 0 },
+  { name: "music",       file: "/index/forumz/forum-music.html",           category: "music",         count: 0 },
+  { name: "movies & tv", file: "/index/forumz/forum-movies-and-tv.html",   category: "movies-and-tv", count: 0 },
+  { name: "food",        file: "/index/forumz/forum-food.html",            category: "food",          count: 0 },
+  { name: "games",       file: "/index/forumz/forum-games.html",           category: "games",         count: 0 },
+  { name: "coding",      file: "/index/forumz/forum-coding.html",          category: "coding",        count: 0 },
+  { name: "hobbies",     file: "/index/forumz/forum-hobbies.html",         category: "hobbies",       count: 0 },
+  { name: "nostalgia",   file: "/index/forumz/forum-nostalgia.html",       category: "nostalgia",     count: 0 },
+  { name: "queer forum", file: "/index/forumz/forum-queer.html",           category: "queer",         count: 0 },
+  { name: "p.o.c. forum",   file: "/index/forumz/forum-poc.html",          category: "p.o.c.",        count: 0 },
+  { name: "religion",    file: "/index/forumz/forum-religion.html",        category: "religion",      count: 0 },
+  { name: "home",        file: "/index/forumz/forum-home.html",            category: "home",          count: 0 },
+  { name: "radio",       file: "/index/forumz/forum-radio.html",           category: "radio",         count: 0 },
+  { name: "books",       file: "/index/forumz/forum-books.html",           category: "books",         count: 0 },
+  { name: "vent",        file: "/index/forumz/forum-vent.html",            category: "vent",          count: 0 },
+  { name: "advice",      file: "/index/forumz/forum-advice.html",          category: "advice",        count: 0 },
+];
+
+const COLS = 3; // how many cells per table row
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function render(list) {
+  const grid = document.getElementById('grid');
+  let html = '';
+  for (let i = 0; i < list.length; i += COLS) {
+    const rowItems = list.slice(i, i + COLS);
+    html += '<tr>' + rowItems.map(f => {
+      const countHtml = f.count > 0 ? `<span class="count">${f.count}</span>` : '';
+      return `<td><a href="${escapeHtml(f.file)}">${escapeHtml(f.name)}</a>${countHtml}</td>`;
+    }).join('') + '</tr>';
+  }
+  grid.innerHTML = html;
+
+  const select = document.getElementById('jumpTo');
+  select.innerHTML = '<option value="">forum</option>' +
+    list.map(f => `<option value="${escapeHtml(f.file)}">${escapeHtml(f.name)}</option>`).join('');
+}
+
+function jump(file) {
+  if (file) window.location.href = file;
+}
+
+function doSearch() {
+  const q = document.getElementById('searchbox').value.trim().toLowerCase();
+  if (!q) { render(forums); return; }
+  render(forums.filter(f => f.name.toLowerCase().includes(q)));
+}
+
+async function loadCounts() {
+  const results = await Promise.all(
+    forums.map(f =>
+      sb.from('forum_posts')
+        .select('id', { count: 'exact', head: true })
+        .eq('category', f.category)
+        .is('parent_id', null)
+    )
+  );
+
+  results.forEach((res, i) => {
+    if (res.error) {
+      console.error(`Failed to load count for "${forums[i].category}":`, res.error);
+      return;
+    }
+    forums[i].count = res.count || 0;
+  });
+
+  render(forums);
+  updateStats();
+}
+
+function updateStats() {
+  const totalPosts = forums.reduce((sum, f) => sum + f.count, 0);
+  document.getElementById('stats').textContent =
+    totalPosts > 0 ? `[ ${totalPosts.toLocaleString()} threads ]` : '';
+}
+
+render(forums);
+loadCounts();
+</script>
+
+</body>
+</html>
