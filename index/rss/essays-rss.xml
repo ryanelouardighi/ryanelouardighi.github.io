@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ryanelouardighi.com : Essays</title>
     <link>https://ryanelouardighi.com/index/essays.html</link>
     <description>Essais from me</description>
+
+    <atom:link href="https://ryanelouardighi.com/index/essays.html" rel="self" type="application/rss+xml" />
+
+    <item>
+      <title>FORUMZ</title>
+      <link>https://ryanelouardighi.com/index/forumz/forum-general.html</link>
+      <description>Presenting: the new forumz section!!!!!; written 2026 August 6, 20:15.</description>
+      <pubDate>Thu, 6 Aug 2026 20:15:02 +0000</pubDate>
+      <guid>https://ryanelouardighi.com/index/forumz/forum-general.html</guid>
+    </item>
 
     <item>
       <title>Pledge to myself</title>
