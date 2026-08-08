@@ -4,6 +4,9 @@
     <title>ryanelouardighi.com : Poems</title>
     <link>https://ryanelouardighi.com/index/poems.html</link>
     <description>Poèmes from me</description>
+    <link rel="alternate" type="application/rss+xml" title="ryanelouardighi.com : Poems" href="https://ryanelouardighi.com/index/rss/poems-rss.xml"></link>
+
+    <atom:link href="https://ryanelouardighi.com/index/rss/essays-rss.xml" rel="self" type="application/rss+xml" />
 
     <item>
       <title>nenien</title>
