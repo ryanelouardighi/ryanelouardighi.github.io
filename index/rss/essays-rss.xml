@@ -2,11 +2,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ryanelouardighi.com : Essays</title>
-
     <link>https://ryanelouardighi.com/index/essays.html</link>
-    <description>Essais from me</description>
-    <link rel="alternate" type="application/rss+xml" title="ryanelouardighi.com : Essays" href="https://ryanelouardighi.com/index/rss/essays-rss.xml"></link>
-    
+    <description>Essais from me</description>    
     <atom:link href="https://ryanelouardighi.com/index/rss/essays-rss.xml" rel="self" type="application/rss+xml" />
 
     <item>
