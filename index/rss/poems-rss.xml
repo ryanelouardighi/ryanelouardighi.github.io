@@ -6,6 +6,23 @@
     <description>Poèmes from me</description>
     <atom:link href="https://ryanelouardighi.com/index/rss/poems-rss.xml" rel="self" type="application/rss+xml" />
 
+
+    <item>
+      <title>SEE THE YO-YO</title>
+      <link>https://ryanelouardighi.com/index/images/see-the-yo-yo.html</link>
+      <description>Frère de "transcending ma classe d'anglai"; written 2026 September 17, 12:04 (might've been later for the back but I don't know for sure).</description>
+      <pubDate>Tue, 05 May 2026 12:00:19 +0000</pubDate>
+      <guid>https://ryanelouardighi.com/index/images/see-the-yo-yo.html</guid>
+    </item>
+
+    <item>
+      <title>transcending ma classe d'anglai</title>
+      <link>https://ryanelouardighi.com/index/images/transcending-ma-classe-d-anglai.html</link>
+      <description>My first expériment avec les arts plastiques comme poésie; written 2026 September 17, 11:50.</description>
+      <pubDate>Tue, 05 May 2026 12:00:19 +0000</pubDate>
+      <guid>https://ryanelouardighi.com/index/images/transcending-ma-classe-d-anglai.html</guid>
+    </item>
+
     <item>
       <title>nenien</title>
       <link>https://ryanelouardighi.com/index/poems/nenien.html</link>
